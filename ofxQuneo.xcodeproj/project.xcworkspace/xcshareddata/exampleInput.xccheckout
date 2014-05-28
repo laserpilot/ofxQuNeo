@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E2CC8C2A-7FB9-4B31-80A1-6B8E9C1A4EAD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>exampleInput</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6F9405FC-F968-450A-9EAD-95E22F7A6CEB</key>
+		<string>https://github.com/danomatika/ofxMidi.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>exampleInput/exampleInput.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6F9405FC-F968-450A-9EAD-95E22F7A6CEB</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/danomatika/ofxMidi.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6F9405FC-F968-450A-9EAD-95E22F7A6CEB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6F9405FC-F968-450A-9EAD-95E22F7A6CEB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxMidi</string>
+		</dict>
+	</array>
+</dict>
+</plist>
