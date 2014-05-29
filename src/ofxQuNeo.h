@@ -26,10 +26,17 @@ class ofxQuNeo : public ofBaseApp, public ofxMidiListener {
     
     ofxMidiIn quNeo;
     ofxMidiMessage quNeoMessage;
+    ofxMidiMessage prevMessage;
     
     ofxOscSender sender;
     
     vector<int> controlVals;
-        vector<int> velocityVals;
+    vector<int> prevControlVals;
+    vector<int> velocityVals;
     
+    float prevSendTime;
+    
+    vector<int> prevVelocity;
+    
+    int zeroCount;
 };
