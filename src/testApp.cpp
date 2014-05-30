@@ -20,7 +20,10 @@ void testApp::update() {
 void testApp::draw() {
     ofBackgroundGradient(ofColor::white, ofColor::gray);
     //quNeo.drawDebug();
+    ofSetColor(0);
+    ofDrawBitmapString("QuNeo - Sending OSC Port 1234", 70,40);
     quNeo.drawInterface(20, 80);
+        ofDrawBitmapString("Akai MPD24 - Sending OSC Port 1273 ", 350,40);
     mpd24.drawInterface(300, 80);
 }
 //--------------------------------------------------------------

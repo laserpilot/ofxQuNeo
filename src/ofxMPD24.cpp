@@ -22,12 +22,10 @@ void ofxMPD24::setup(){
     sender.setup("localhost", 1273);
     
     prevSendTime = 0;
-}
-
-void ofxMPD24::update(){
     
-
+    sendOsc = true;
 }
+
 
 void ofxMPD24::drawInterface(int x, int y){
     
@@ -182,7 +180,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
 	// make a copy of the latest message
 
     mpd24Message = msg;
-    
+
     
     //send velocity values
     for (int i=0; i<127; i++) { //this could be optimized...
@@ -201,31 +199,32 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
     }
     
 
-    
-
-    for (int i=0; i<127; i++) {
-        
-        for(int j=0; j<mpd24Message.bytes.size(); j++){
-            if (mpd24Message.bytes[0]==162 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is aftertouch...
-                //second byte is the aftertouch channel, and 3rd byte is the value
-                int aTChannel, aTVal;
-                aTChannel =mpd24Message.bytes[1];
-                aTVal =mpd24Message.bytes[2];
-                afterTouchVals[aTChannel]=aTVal;
-                
-                               if (aTChannel==mpdPressNum[aTChannel-1]) {
-                    ofxOscMessage m;
-                    m.setAddress("/mpdP/"+ofToString(aTChannel));
-                    m.addIntArg(afterTouchVals[i]);
-                    sender.sendMessage(m);
-                }
+    if(mpd24Message.bytes.size()>0){
+        if (mpd24Message.bytes[0]==162 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is aftertouch...
+            //second byte is the aftertouch channel, and 3rd byte is the value
+            int aTChannel, aTVal;
+            aTChannel = mpd24Message.bytes[1];
+            aTVal = mpd24Message.bytes[2];
+            afterTouchVals[aTChannel]=aTVal;
+  
+            if (aTChannel==mpdPressNum[aTChannel-1] && sendOsc && prevAfterTouchVals[aTChannel] != afterTouchVals[aTChannel] ) {
+                ofxOscMessage m;
+                m.setAddress("/mpdP/"+ofToString(aTChannel));
+                m.addIntArg(afterTouchVals[aTChannel]);
+                sender.sendMessage(m);
             }
         }
+    }
+    
+    prevAfterTouchVals = afterTouchVals;
+
+    for (int i=0; i<127; i++) {
+    
         
         if (i==mpd24Message.control) {
             controlVals[i] = mpd24Message.value; //just make a vector of all the control vals...
             
-            if (prevSendTime+0.002 < ofGetElapsedTimef() && controlVals[i]!=prevControlVals[i]) { //need to rate limit incoming data before sending over osc - but we need to keep values that are equal to 0
+            if (prevSendTime+0.002 < ofGetElapsedTimef() && controlVals[i]!=prevControlVals[i] && sendOsc) { //need to rate limit incoming data before sending over osc - but we need to keep values that are equal to 0
                 
                 //Send Pad info over OSC
                 for (int j=0; j<16; j++){
@@ -235,8 +234,6 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
                     }
-                    
-                    prevControlVals[i] = controlVals[i];
                 }
                 
                 //send sliders
@@ -258,15 +255,20 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         sender.sendMessage(m);
                     }
                 }
-                
-                
+                prevControlVals = controlVals;
                 prevSendTime = ofGetElapsedTimef();
             
             }
         }
     }
     
-    
+    //sends events out with a vector of values
+    //To decode you would just look for the specified control value 0-127,and stored in that position in the array would be the value for that control channel
+    //ie button pad 1 is control channel 1. you would do changingVal = controlVal[1]
+    //these could be integrated better to disable false positives, but this works for now
+    ofNotifyEvent(mpdControlValEvent, controlVals, this);
+    ofNotifyEvent(mpdVelocityEvent, velocityVals, this);
+    ofNotifyEvent(mpdAfterTouchEvent, afterTouchVals, this);
     
 
 }
@@ -311,6 +313,20 @@ void ofxMPD24::drawDebug(int x, int y){
 	text.str(""); // clear
     
     ofPopMatrix();
+}
+
+vector <int> ofxMPD24::getControlVals(){
+    return controlVals;
+}
+vector <int> ofxMPD24::getVelocityVals(){
+    return velocityVals;
+}
+vector <int> ofxMPD24::getAfterTouchVals(){
+    return afterTouchVals;
+}
+
+void ofxMPD24::setSendOsc(bool _send){
+    sendOsc = _send;
 }
 
 void ofxMPD24::exit(){

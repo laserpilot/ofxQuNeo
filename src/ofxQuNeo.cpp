@@ -17,15 +17,11 @@ void ofxQuNeo::setup(){
     velocityVals.assign(127, 0);
     prevVelocity.assign(127, 0);
     
-    sender.setup("localhost", 1234);
-    
+    sender.setup("localhost", 1234); //change to your specified port num and IP
+    sendOsc = true;
     prevSendTime = 0;
 }
 
-void ofxQuNeo::update(){
-    
-
-}
 
 void ofxQuNeo::drawInterface(int x, int y){
     
@@ -149,15 +145,12 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
             prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
         }
     }
-    
-
-    
 
     for (int i=0; i<127; i++) {
         if (i==quNeoMessage.control) {
             controlVals[i] = quNeoMessage.value; //just make a vector of all the control vals...
             
-            if (prevSendTime+0.002 < ofGetElapsedTimef() && controlVals[i]!=prevControlVals[i]) { //need to rate limit incoming data before sending over osc - but we need to keep values that are equal to 0
+            if (prevSendTime+0.002 < ofGetElapsedTimef() && controlVals[i]!=prevControlVals[i] && sendOsc) { //need to rate limit incoming data before sending over osc - but we need to keep values that are equal to 0
                 
                 //Send Pad info over OSC
                 for (int j=0; j<16; j++){
@@ -216,10 +209,13 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
         }
     }
     
-    
-    
-
+    //sends events out with a vector of values
+    //To decode you would just look for the specified control value 0-127,and stored in that position in the array would be the value for that control channel
+    //ie button pad 1 is control channel 1. you would do changingVal = controlVal[1]
+    ofNotifyEvent(quControlValEvent, controlVals, this);
+    ofNotifyEvent(quVelocityEvent, velocityVals, this);
 }
+
 
 void ofxQuNeo::drawDebug(int x, int y){
     
@@ -267,6 +263,17 @@ void ofxQuNeo::drawDebug(int x, int y){
 	text.str(""); // clear
     
     ofPopMatrix();
+}
+
+vector <int> ofxQuNeo::getControlVals(){
+    return controlVals;
+}
+vector <int> ofxQuNeo::getVelocityVals(){
+    return velocityVals;
+}
+
+void ofxQuNeo::setSendOsc(bool send){
+    sendOsc = send;
 }
 
 void ofxQuNeo::exit(){
