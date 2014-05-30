@@ -183,37 +183,6 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
     mpd24Message = msg;
 
     
-//    //send velocity values
-//    for (int i=0; i<127; i++) { //this could be optimized...
-//        
-//        //if previous value is greater than 0 and new value is 0 then send zero
-//        //if previous value is 0 and new value is greater than 0 then send new value
-//        if (i==mpd24Message.pitch &&  prevVelocity[i] != mpd24Message.velocity ) {
-//            velocityVals[i] = mpd24Message.velocity;
-//            
-//            //NEED TO PARSE THE INDIVIDUAL BYTES TO CATCH THE NOTE ON AND NOTE OFF
-//            //FIRST BYTE IS 146, 2nd is pitch, 3rd is velocity
-//            //For note off birst byte is 130
-//            if (prevVelocity[i] >0 && velocityVals[i]==0) {
-//                ofxOscMessage m;
-//                m.setAddress("/mpdVel/"+ofToString(i));
-//                m.addIntArg(velocityVals[i]);
-//                sender.sendMessage(m);
-//                cout<<"Released"<< prevVelocity[i] << " " << velocityVals[i]<<endl;
-//
-//            }else{
-//                cout<<"Pressed"<< prevVelocity[i] << " " << velocityVals[i]<<endl;
-//
-//            }
-//            
-//            
-//            prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
-//        }
-//        
-//        //Todo: send all the velocity data for all of the other notes but segment them better
-//
-//    }
-    
 
     if(mpd24Message.bytes.size()>0){
         if (mpd24Message.bytes[0]==130 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is note off
