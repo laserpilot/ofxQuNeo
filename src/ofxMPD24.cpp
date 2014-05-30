@@ -16,6 +16,7 @@ void ofxMPD24::setup(){
     prevControlVals.assign(127, 0);
     velocityVals.assign(127, 0);
     prevVelocity.assign(127, 0);
+    prevVelocity2.assign(127, 0);
     afterTouchVals.assign(127,0);
     prevAfterTouchVals.assign(127,0);
     
@@ -182,24 +183,69 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
     mpd24Message = msg;
 
     
-    //send velocity values
-    for (int i=0; i<127; i++) { //this could be optimized...
-        if (i==mpd24Message.pitch && prevVelocity[i] != mpd24Message.velocity ) {
-            velocityVals[i] = mpd24Message.velocity;
-            ofxOscMessage m;
-            m.setAddress("/mpdVel/"+ofToString(i));
-            m.addIntArg(velocityVals[i]);
-            sender.sendMessage(m);
-            
-            prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
-        }
-        
-        //Todo: send all the velocity data for all of the other notes but segment them better
-
-    }
+//    //send velocity values
+//    for (int i=0; i<127; i++) { //this could be optimized...
+//        
+//        //if previous value is greater than 0 and new value is 0 then send zero
+//        //if previous value is 0 and new value is greater than 0 then send new value
+//        if (i==mpd24Message.pitch &&  prevVelocity[i] != mpd24Message.velocity ) {
+//            velocityVals[i] = mpd24Message.velocity;
+//            
+//            //NEED TO PARSE THE INDIVIDUAL BYTES TO CATCH THE NOTE ON AND NOTE OFF
+//            //FIRST BYTE IS 146, 2nd is pitch, 3rd is velocity
+//            //For note off birst byte is 130
+//            if (prevVelocity[i] >0 && velocityVals[i]==0) {
+//                ofxOscMessage m;
+//                m.setAddress("/mpdVel/"+ofToString(i));
+//                m.addIntArg(velocityVals[i]);
+//                sender.sendMessage(m);
+//                cout<<"Released"<< prevVelocity[i] << " " << velocityVals[i]<<endl;
+//
+//            }else{
+//                cout<<"Pressed"<< prevVelocity[i] << " " << velocityVals[i]<<endl;
+//
+//            }
+//            
+//            
+//            prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
+//        }
+//        
+//        //Todo: send all the velocity data for all of the other notes but segment them better
+//
+//    }
     
 
     if(mpd24Message.bytes.size()>0){
+        if (mpd24Message.bytes[0]==130 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is note off
+            
+            int velPitch, velVal;
+            
+            velPitch=mpd24Message.bytes[1];
+            velVal=mpd24Message.bytes[2];
+            
+            ofxOscMessage m;
+            m.setAddress("/mpdVel/"+ofToString(velPitch));
+            m.addIntArg(0);
+            sender.sendMessage(m);
+            
+            velocityVals[velPitch] = velVal;
+        }
+        
+        if (mpd24Message.bytes[0]==146 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is note off
+            
+            int velPitch, velVal;
+            
+            velPitch=mpd24Message.bytes[1];
+            velVal=mpd24Message.bytes[2];
+            
+            ofxOscMessage m;
+            m.setAddress("/mpdVel/"+ofToString(velPitch));
+            m.addIntArg(velVal);
+            sender.sendMessage(m);
+            
+            velocityVals[velPitch] = velVal;
+        }
+        
         if (mpd24Message.bytes[0]==162 && mpd24Message.bytes.size()>1) { //if the first byte indicates it is aftertouch...
             //second byte is the aftertouch channel, and 3rd byte is the value
             int aTChannel, aTVal;
@@ -251,6 +297,15 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                     if (i==knobNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/mpdKnob/"+ofToString(j+1));
+                        m.addIntArg(controlVals[i]);
+                        sender.sendMessage(m);
+                    }
+                }
+                
+                for (int j=0; j<5; j++){
+                    if (i==buttonNum[j]) {
+                        ofxOscMessage m;
+                        m.setAddress("/mpdButton/"+ofToString(j+1));
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
                     }
