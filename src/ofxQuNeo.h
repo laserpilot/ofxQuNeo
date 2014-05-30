@@ -14,7 +14,7 @@ class ofxQuNeo : public ofBaseApp, public ofxMidiListener {
     void setup();
     void update();
     void drawInterface(int x, int y);
-    void drawDebug();
+    void drawDebug(int x, int y);
     void drawPad(ofPoint loc, int x, int y, int pressure);
     void drawSlider(ofPoint loc, int value, int pressure);
     void sendOsc();

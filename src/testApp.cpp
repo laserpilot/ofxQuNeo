@@ -8,17 +8,20 @@ void testApp::setup() {
 	ofSetLogLevel(OF_LOG_VERBOSE);
 	
     quNeo.setup();
+    mpd24.setup();
 
 }
 
 //--------------------------------------------------------------
 void testApp::update() {
-    quNeo.update();
+
 }
 //--------------------------------------------------------------
 void testApp::draw() {
-    quNeo.drawDebug();
-    quNeo.drawInterface(20, 300);
+    ofBackgroundGradient(ofColor::white, ofColor::gray);
+    //quNeo.drawDebug();
+    quNeo.drawInterface(20, 80);
+    mpd24.drawInterface(300, 80);
 }
 //--------------------------------------------------------------
 void testApp::exit() {

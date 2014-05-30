@@ -43,9 +43,9 @@ void ofxQuNeo::drawInterface(int x, int y){
     ofPushMatrix();
     ofTranslate(x,y);
     
-    //Draw Pads
+    //Draw Pads-----------------------
     int countpos = 1;
-    for(int k = 4; k>0;k--){
+    for(int k = 4; k>0;k--){ //start in bottom left
         for(int j = 0; j<4;j++){
             ofPushMatrix();
             ofTranslate((j*55)+50, (k*55));
@@ -81,7 +81,7 @@ void ofxQuNeo::drawInterface(int x, int y){
     }
     ofPopMatrix();
     
-    //Draw Arrows
+    //Draw Arrows--------------------
     ofPushMatrix();
     ofTranslate(x+50, y+320);
     ofDrawBitmapString("Arrows", 0,40);
@@ -105,9 +105,10 @@ void ofxQuNeo::drawInterface(int x, int y){
     }
     ofPopMatrix();
     
-    //Draw Sliders Buttons
+    //Draw Sliders Buttons----------------------
     ofPushMatrix();
     ofTranslate(x+50, y);
+    ofSetColor(0);
         ofDrawBitmapString("Sliders", 0,40);
         for (int i=0; i<11; i++){
             ofPushMatrix();
@@ -137,11 +138,11 @@ void ofxQuNeo::drawInterface(int x, int y){
 //--------------------------------------------------------------
 void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
 	// make a copy of the latest message
-	
-    
 
     quNeoMessage = msg;
     
+    
+    //send velocity values
     for (int i=0; i<127; i++) { //this could be optimized...
         if (i==quNeoMessage.pitch && prevVelocity[i] != quNeoMessage.velocity ) {
             velocityVals[i] = quNeoMessage.velocity;
@@ -150,11 +151,11 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
             m.addIntArg(velocityVals[i]);
             sender.sendMessage(m);
             
-            prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data
+            prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
         }
         
-        
-        //cout<<"Pitch "<<quNeoMessage.pitch<<endl;
+        //Todo: send all the velocity data for all of the other notes but segment them better
+
     }
     
 
@@ -166,7 +167,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
             
             if (prevSendTime+0.002 < ofGetElapsedTimef() && controlVals[i]!=prevControlVals[i]) { //need to rate limit incoming data before sending over osc - but we need to keep values that are equal to 0
                 
-                //sendPadInfo
+                //Send Pad info over OSC
                 for (int j=0; j<16; j++){
                     if (i==pressNum[j]) {
                         ofxOscMessage m;
@@ -190,6 +191,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                     prevControlVals[i] = controlVals[i];
                 }
                 
+                //send sliders
                 for (int j=0; j<11; j++){
                     if (i==sliderPressNum[j]) {
                         ofxOscMessage m;
@@ -205,6 +207,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                     }
                 }
                 
+                //send arrow pressure data
                 for (int j=0; j<11; j++){
                     if (i==arrowPressNum[j]) {
                         ofxOscMessage m;
@@ -226,8 +229,10 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
 
 }
 
-void ofxQuNeo::drawDebug(){
+void ofxQuNeo::drawDebug(int x, int y){
     
+    ofPushMatrix();
+    ofTranslate(x, y);
     ofSetColor(0);
 	
 	// draw the last recieved message contents to the screen
@@ -268,6 +273,8 @@ void ofxQuNeo::drawDebug(){
 	text << "delta: " << quNeoMessage.deltatime;
 	ofDrawBitmapString(text.str(), 20, 240);
 	text.str(""); // clear
+    
+    ofPopMatrix();
 }
 
 void ofxQuNeo::exit(){

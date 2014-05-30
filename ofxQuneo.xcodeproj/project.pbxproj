@@ -33,6 +33,7 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		E69DB3AB1937E6B90037AE0C /* ofxMPD24.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E69DB3A91937E6B90037AE0C /* ofxMPD24.cpp */; };
 		E6A537EC1936783F002DF52E /* ofxQuNeo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6A537EA1936783F002DF52E /* ofxQuNeo.cpp */; };
 		E6A5385019367A8D002DF52E /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6A5382919367A8D002DF52E /* ofxOscBundle.cpp */; };
 		E6A5385119367A8D002DF52E /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6A5382B19367A8D002DF52E /* ofxOscMessage.cpp */; };
@@ -123,6 +124,8 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E69DB3A91937E6B90037AE0C /* ofxMPD24.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMPD24.cpp; sourceTree = "<group>"; };
+		E69DB3AA1937E6B90037AE0C /* ofxMPD24.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMPD24.h; sourceTree = "<group>"; };
 		E6A537EA1936783F002DF52E /* ofxQuNeo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxQuNeo.cpp; sourceTree = "<group>"; };
 		E6A537EB1936783F002DF52E /* ofxQuNeo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQuNeo.h; sourceTree = "<group>"; };
 		E6A5382719367A8D002DF52E /* ofxOsc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxOsc.h; sourceTree = "<group>"; };
@@ -328,6 +331,8 @@
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E6A537EA1936783F002DF52E /* ofxQuNeo.cpp */,
 				E6A537EB1936783F002DF52E /* ofxQuNeo.h */,
+				E69DB3A91937E6B90037AE0C /* ofxMPD24.cpp */,
+				E69DB3AA1937E6B90037AE0C /* ofxMPD24.h */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 			);
 			path = src;
@@ -535,6 +540,7 @@
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				BCC8D420CBA9217E437D2D76 /* ofxRtMidiIn.cpp in Sources */,
 				3AEFE4FA8AD5C72671AD07F8 /* ofxRtMidiOut.cpp in Sources */,
+				E69DB3AB1937E6B90037AE0C /* ofxMPD24.cpp in Sources */,
 				E6A5385719367A8D002DF52E /* UdpSocket.cpp in Sources */,
 				1A86B7721CAEBC6F1C572C45 /* ofxBaseMidi.cpp in Sources */,
 				E6A5385619367A8D002DF52E /* NetworkingUtils.cpp in Sources */,

@@ -16,6 +16,8 @@
 
 #include "ofxQuNeo.h"
 
+#include "ofxMPD24.h"
+
 class testApp : public ofBaseApp {
 	
 public:
@@ -35,5 +37,6 @@ public:
 	
     
     ofxQuNeo quNeo;
+    ofxMPD24 mpd24;
     
 };
