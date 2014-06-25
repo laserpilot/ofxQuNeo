@@ -11,7 +11,9 @@ class ofxQuNeo : public ofBaseApp, public ofxMidiListener {
         ofxQuNeo();
         ~ofxQuNeo();
         
+        void setup(string name, int port);
         void setup();
+
         void drawInterface(int x, int y);
         void drawDebug(int x, int y);
         void setSendOsc(bool send);

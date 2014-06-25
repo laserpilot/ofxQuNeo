@@ -8,6 +8,18 @@ ofxQuNeo::ofxQuNeo(){
 ofxQuNeo::~ofxQuNeo(){
     
 }
+void ofxQuNeo::setup(string name, int port){
+    quNeo.openPort(name);
+    quNeo.addListener(this);
+    controlVals.assign(127, 0);
+    prevControlVals.assign(127, 0);
+    velocityVals.assign(127, 0);
+    prevVelocity.assign(127, 0);
+    
+    sender.setup("localhost", port); //change to your specified port num and IP
+    sendOsc = true;
+    prevSendTime = 0;
+}
 
 void ofxQuNeo::setup(){
     quNeo.openPort("QUNEO");
