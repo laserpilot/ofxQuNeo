@@ -83,11 +83,8 @@
 
 /* Begin PBXFileReference section */
 		589076901D388036C02735F3 /* ofxMPD24.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMPD24.cpp; path = ../../../addons/ofxQuneo/src/ofxMPD24.cpp; sourceTree = SOURCE_ROOT; };
-		7CEC2EA16822361046C0E44E /* testApp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = testApp.h; path = ../../../addons/ofxQuneo/src/testApp.h; sourceTree = SOURCE_ROOT; };
-		974DB2E56DAA6D338A368A50 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = main.cpp; path = ../../../addons/ofxQuneo/src/main.cpp; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		C1D02B7A245F480BD135BC98 /* ofxQuNeo.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxQuNeo.cpp; path = ../../../addons/ofxQuneo/src/ofxQuNeo.cpp; sourceTree = SOURCE_ROOT; };
-		D2778DD67D677BAFF4AD4776 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = ../../../addons/ofxQuneo/src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		DD1D9D06EF77848D4072A617 /* ofxQuNeo.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxQuNeo.h; path = ../../../addons/ofxQuneo/src/ofxQuNeo.h; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -206,13 +203,10 @@
 		4A8E0F0FB4520D1AE02F18E1 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				974DB2E56DAA6D338A368A50 /* main.cpp */,
 				589076901D388036C02735F3 /* ofxMPD24.cpp */,
 				F7949095C9A9EB49FAAE2439 /* ofxMPD24.h */,
 				C1D02B7A245F480BD135BC98 /* ofxQuNeo.cpp */,
 				DD1D9D06EF77848D4072A617 /* ofxQuNeo.h */,
-				D2778DD67D677BAFF4AD4776 /* testApp.cpp */,
-				7CEC2EA16822361046C0E44E /* testApp.h */,
 			);
 			name = src;
 			sourceTree = "<group>";

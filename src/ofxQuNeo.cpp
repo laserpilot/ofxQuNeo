@@ -151,7 +151,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
             velocityVals[i] = quNeoMessage.velocity;
             ofxOscMessage m;
             m.setAddress("/quVel/"+ofToString(i));
-            m.addIntArg(velocityVals[i]);
+            m.addFloatArg((float)velocityVals[i]/127);
             sender.sendMessage(m);
             
             prevVelocity[i] = velocityVals [i]; //we need to ignore messages with values of 0, which get sent with all the other control data, ut we need to keep at least one of them for their note-off data
@@ -169,19 +169,20 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                     if (i==pressNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quP/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        //m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                     if (i==xNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quX/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                     if (i==yNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quY/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                     
@@ -193,13 +194,13 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                     if (i==sliderPressNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quSlideP/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                     if(i==sliderLocNum[j]){
                         ofxOscMessage m;
                         m.setAddress("/quSlideLoc/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                 }
@@ -209,7 +210,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                     if (i==arrowPressNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quArrowP/"+ofToString(j+1));
-                        m.addIntArg(controlVals[i]);
+                        m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
                     }
                 }

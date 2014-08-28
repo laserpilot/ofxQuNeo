@@ -6,7 +6,7 @@ void testApp::setup() {
 	ofSetVerticalSync(true);
 	ofBackground(255, 255, 255);
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	
+	ofSetFrameRate(60);
     quNeo.setup();
     mpd24.setup();
 
