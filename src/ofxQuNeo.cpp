@@ -106,6 +106,10 @@ void ofxQuNeo::drawInterface(int x, int y){
         
         ofPopMatrix();
     }
+    
+    for (int i=0; i<oscPaths.size(); i++){
+        ofDrawBitmapString(oscPaths[i], 20, 100+i*20);
+    }
     ofPopMatrix();
     
     //Draw Sliders Buttons----------------------
@@ -172,18 +176,21 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                         //m.addIntArg(controlVals[i]);
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                     if (i==xNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quX/"+ofToString(j+1));
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                     if (i==yNum[j]) {
                         ofxOscMessage m;
                         m.setAddress("/quY/"+ofToString(j+1));
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                     
                     prevControlVals[i] = controlVals[i];
@@ -196,12 +203,14 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/quSlideP/"+ofToString(j+1));
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                     if(i==sliderLocNum[j]){
                         ofxOscMessage m;
                         m.setAddress("/quSlideLoc/"+ofToString(j+1));
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 
@@ -212,6 +221,7 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/quArrowP/"+ofToString(j+1));
                         m.addFloatArg((float)controlVals[i]/127);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 
@@ -220,6 +230,10 @@ void ofxQuNeo::newMidiMessage(ofxMidiMessage& msg){
             
             }
         }
+    }
+    
+    if (oscPaths.size()>15) {
+        oscPaths.erase(oscPaths.begin(), oscPaths.begin()+1);
     }
     
     //sends events out with a vector of values

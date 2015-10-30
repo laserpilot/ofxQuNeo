@@ -10,33 +10,33 @@
 	<string>BasicExample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>68A75ADF-5E6B-4473-BD73-1F2BAEAC9D5C</key>
+		<key>90E2F969A762FB62C413A0C44D1F334E6EC3F531</key>
+		<string>https://github.com/danomatika/ofxMidi</string>
+		<key>F8998CEE7CD1C29F4250B8C4F0DDA963408621F1</key>
 		<string>https://github.com/laserpilot/ofxQuNeo.git</string>
-		<key>92669BC6-8774-4449-8838-A92230AA0A25</key>
-		<string>https://github.com/danomatika/ofxMidi.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BasicExample/BasicExample.xcodeproj/project.xcworkspace</string>
+	<string>BasicExample/BasicExample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>68A75ADF-5E6B-4473-BD73-1F2BAEAC9D5C</key>
-		<string>../../..</string>
-		<key>92669BC6-8774-4449-8838-A92230AA0A25</key>
+		<key>90E2F969A762FB62C413A0C44D1F334E6EC3F531</key>
 		<string>../../../../ofxMidi</string>
+		<key>F8998CEE7CD1C29F4250B8C4F0DDA963408621F1</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/laserpilot/ofxQuNeo.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>68A75ADF-5E6B-4473-BD73-1F2BAEAC9D5C</string>
+	<string>F8998CEE7CD1C29F4250B8C4F0DDA963408621F1</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>92669BC6-8774-4449-8838-A92230AA0A25</string>
+			<string>90E2F969A762FB62C413A0C44D1F334E6EC3F531</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxMidi</string>
 		</dict>
@@ -44,9 +44,9 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>68A75ADF-5E6B-4473-BD73-1F2BAEAC9D5C</string>
+			<string>F8998CEE7CD1C29F4250B8C4F0DDA963408621F1</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ofxQuneo</string>
+			<string>ofxQuNeo</string>
 		</dict>
 	</array>
 </dict>

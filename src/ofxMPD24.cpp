@@ -169,6 +169,10 @@ void ofxMPD24::drawInterface(int x, int y){
             ofRect(0, locScale-padHeight/2, 10, 3);
             ofPopMatrix();
         }
+    
+    for (int i=0; i<oscPaths.size(); i++){
+        ofDrawBitmapString(oscPaths[i], 20, 100+i*20);
+    }
         ofPopMatrix();
         
   
@@ -196,7 +200,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
             m.setAddress("/mpdVel/"+ofToString(velPitch));
             m.addIntArg(0);
             sender.sendMessage(m);
-            
+            oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
             velocityVals[velPitch] = velVal;
         }
         
@@ -211,7 +215,6 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
             m.setAddress("/mpdVel/"+ofToString(velPitch));
             m.addIntArg(velVal);
             sender.sendMessage(m);
-            
             velocityVals[velPitch] = velVal;
         }
         
@@ -227,6 +230,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                 m.setAddress("/mpdP/"+ofToString(aTChannel));
                 m.addIntArg(afterTouchVals[aTChannel]);
                 sender.sendMessage(m);
+                oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
             }
         }
     }
@@ -248,6 +252,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/mpdP/"+ofToString(j+1));
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 
@@ -258,6 +263,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/mpdSlide/"+ofToString(j+1));
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 
@@ -268,6 +274,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/mpdKnob/"+ofToString(j+1));
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 
@@ -277,6 +284,7 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
                         m.setAddress("/mpdButton/"+ofToString(j+1));
                         m.addIntArg(controlVals[i]);
                         sender.sendMessage(m);
+                        oscPaths.push_back(m.getAddress() + " " + ofToString(m.getArgAsFloat(0)));
                     }
                 }
                 prevControlVals = controlVals;
@@ -284,6 +292,10 @@ void ofxMPD24::newMidiMessage(ofxMidiMessage& msg){
             
             }
         }
+    }
+    
+    if (oscPaths.size()>15) {
+        oscPaths.erase(oscPaths.begin(), oscPaths.begin()+1);
     }
     
     //sends events out with a vector of values

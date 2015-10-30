@@ -39,6 +39,8 @@ class ofxQuNeo : public ofBaseApp, public ofxMidiListener {
         vector<int> controlVals;
         vector<int> prevControlVals;
         vector<int> velocityVals;
+    
+    vector<string> oscPaths;
         
         float prevSendTime;
         
